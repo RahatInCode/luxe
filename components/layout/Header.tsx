@@ -12,16 +12,20 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
-  
+
   const { openCart, getItemCount } = useCartStore()
   const wishlistCount = useWishlistStore((state) => state.getCount())
   const cartCount = getItemCount()
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
+  // Ensure counts are numbers and handle display
+  const cartNumber = typeof cartCount === 'number' ? cartCount : 0
+  const wishNumber = typeof wishlistCount === 'number' ? wishlistCount : 0
+  
+  const displayCart = cartNumber > 99 ? '99+' : String(cartNumber)
+  const displayWish = wishNumber > 99 ? '99+' : String(wishNumber)
 
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -45,15 +49,14 @@ export default function Header() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Mobile Menu Button */}
             <button
               className="lg:hidden p-2 hover:bg-secondary rounded-lg transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
 
-            {/* Logo */}
             <Link
               href="/"
               className="font-display text-2xl md:text-3xl font-bold tracking-wider hover:opacity-80 transition-opacity"
@@ -61,7 +64,6 @@ export default function Header() {
               LUXE
             </Link>
 
-            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8">
               {navItems.map((item) => (
                 <Link
@@ -75,7 +77,6 @@ export default function Header() {
               ))}
             </nav>
 
-            {/* Right Icons */}
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => setIsSearchOpen(true)}
@@ -98,9 +99,9 @@ export default function Header() {
                 aria-label="Wishlist"
               >
                 <Heart size={20} />
-                {wishlistCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-accent text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
-                    {wishlistCount}
+                {wishNumber > 0 && (
+                  <span className="absolute -top-1 -right-1 min-w-[20px] h-5 px-1.5 flex items-center justify-center bg-accent text-black text-[10px] font-bold rounded-full  shadow-lg">
+                    {displayWish}
                   </span>
                 )}
               </Link>
@@ -111,18 +112,17 @@ export default function Header() {
                 aria-label="Shopping cart"
               >
                 <ShoppingCart size={20} />
-                {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-accent text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
-                    {cartCount}
+                {cartNumber > 0 && (
+                  <span className="absolute -top-1 -right-1 min-w-[20px] h-5 px-1.5 flex items-center justify-center bg-accent text-black text-[10px] font-bold rounded-full   shadow-lg">
+                    {displayCart}
                   </span>
                 )}
               </button>
             </div>
           </div>
 
-          {/* Mobile Navigation */}
           {isMenuOpen && (
-            <nav className="lg:hidden mt-4 pb-4 border-t border-border pt-4">
+            <nav className="lg:hidden mt-4 pb-4 border-t border-border pt-4 animate-in slide-in-from-top">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
@@ -138,10 +138,8 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Spacer */}
       <div className={cn(isScrolled ? 'h-20' : 'h-24')} />
 
-      {/* Search Modal */}
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   )
