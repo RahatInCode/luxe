@@ -33,15 +33,16 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="relative isolate bg-primary text-white mt-auto">
+    <footer className="bg-gray-900 text-white mt-auto relative">
+      {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* About */}
+          {/* Brand Section */}
           <div>
-            <h3 className="font-display text-2xl font-bold mb-6 text-white">
+            <h3 className="font-display text-3xl font-bold mb-6 text-white">
               LUXE
             </h3>
-            <p className="text-gray-300 mb-6 leading-relaxed text-base">
+            <p className="text-gray-400 mb-6 leading-relaxed text-base">
               Curating premium fashion for the modern individual. Experience
               luxury in every stitch.
             </p>
@@ -52,10 +53,10 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent transition-all duration-300 hover:scale-110"
+                  className="w-11 h-11 rounded-full bg-gray-800 hover:bg-accent flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-accent/50"
                   aria-label={social.label}
                 >
-                  <social.icon size={18} className="text-white" />
+                  <social.icon size={20} className="text-white" />
                 </a>
               ))}
             </div>
@@ -71,7 +72,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors inline-block text-base"
+                    className="text-gray-400 hover:text-white hover:translate-x-1 transition-all inline-block text-base"
                   >
                     {link.name}
                   </Link>
@@ -88,7 +89,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors inline-block text-base"
+                    className="text-gray-400 hover:text-white hover:translate-x-1 transition-all inline-block text-base"
                   >
                     {link.name}
                   </Link>
@@ -97,7 +98,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Help */}
+          {/* Customer Care */}
           <div>
             <h4 className="font-semibold text-lg mb-6 text-white">
               Customer Care
@@ -107,7 +108,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors inline-block text-base"
+                    className="text-gray-400 hover:text-white hover:translate-x-1 transition-all inline-block text-base"
                   >
                     {link.name}
                   </Link>
@@ -118,17 +119,17 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-gray-300 text-sm">
+        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-gray-400 text-sm">
             © {currentYear} LUXE. All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
-            <p className="text-sm text-gray-400">We accept:</p>
+          <div className="flex items-center gap-6">
+            <p className="text-sm text-gray-500">We accept:</p>
             <div className="flex gap-3">
               {['Visa', 'Mastercard', 'Amex', 'PayPal'].map((payment) => (
                 <div
                   key={payment}
-                  className="bg-white/10 px-3 py-1.5 rounded text-xs font-medium text-white"
+                  className="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-xs font-semibold text-white transition-colors duration-200"
                 >
                   {payment}
                 </div>
