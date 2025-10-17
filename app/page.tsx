@@ -125,164 +125,181 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section
-        ref={heroRef}
-        className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary via-primary/95 to-accent/20"
-      >
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
-        </div>
+{/* Hero Section */}
+<section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+  {/* Background Image */}
+  <div className="absolute inset-0 z-0">
+    <Image
+      src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1600&auto=format&fit=crop&q=80"
+      alt="Hero Background"
+      fill
+      priority
+      className="object-cover brightness-50"
+      sizes="100vw"
+    />
+  </div>
+  
+  {/* Gradient Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/30 z-[1]" />
+  
+  {/* Content */}
+  <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+    <h1
+      ref={titleRef}
+      className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight"
+    >
+      Elevate Your Style
+    </h1>
+    <p
+      ref={subtitleRef}
+      className="text-xl md:text-2xl text-white/90 mb-12 max-w-2xl mx-auto"
+    >
+      Discover curated luxury fashion and timeless pieces crafted for the modern individual
+    </p>
+    <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center">
+      <Link href="/products">
+        <Button size="lg" className="group bg-white text-primary hover:bg-white/90">
+          Shop Collection
+          <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+        </Button>
+      </Link>
+      <Link href="/products?filter=new">
+        <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary">
+          New Arrivals
+        </Button>
+      </Link>
+    </div>
+  </div>
 
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1
-            ref={titleRef}
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight"
-          >
-            Elevate Your Style
-          </h1>
-          <p
-            ref={subtitleRef}
-            className="text-xl md:text-2xl text-white/90 mb-12 max-w-2xl mx-auto"
-          >
-            Discover curated luxury fashion and timeless pieces crafted for the modern individual
-          </p>
-          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/products">
-              <Button size="lg" className="group bg-white text-primary hover:bg-white/90">
-                Shop Collection
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-              </Button>
-            </Link>
-            <Link href="/products?filter=new">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-                New Arrivals
-              </Button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <ChevronDown className="text-white" size={32} />
-        </div>
-      </section>
+  {/* Scroll Indicator */}
+  <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-10">
+    <ChevronDown className="text-white" size={32} />
+  </div>
+</section>
 
       {/* Featured Categories */}
-      <section className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-            Shop by Category
-          </h2>
-          <p className="text-textSecondary text-lg">
-            Explore our curated collections
-          </p>
-        </div>
+<section className="py-20 md:py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div className="text-center mb-16">
+    <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
+      Shop by Category
+    </h2>
+    <p className="text-textSecondary text-lg">
+      Explore our curated collections
+    </p>
+  </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          {categories.map((category) => (
-            <Link
-              key={category.name}
-              href={category.href}
-              className="group relative aspect-[3/4] overflow-hidden rounded-2xl"
-            >
-              <Image
-                src={category.image}
-                alt={category.name}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-8 text-white transform transition-transform duration-300 group-hover:translate-y-[-8px]">
-                <h3 className="font-display text-2xl md:text-3xl font-bold mb-2">
-                  {category.name}
-                </h3>
-                <div className="flex items-center gap-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span>Shop Now</span>
-                  <ArrowRight size={16} />
-                </div>
-              </div>
-            </Link>
-          ))}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {categories.map((category) => (
+      <Link
+        key={category.name}
+        href={category.href}
+        className="group relative aspect-[3/4] overflow-hidden rounded-2xl shadow-lg"
+      >
+        <Image
+          src={category.image}
+          alt={category.name}
+          fill
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          sizes="(max-width: 768px) 100vw, 33vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+          <h3 className="font-display text-3xl font-bold mb-2 transform transition-transform duration-300 group-hover:-translate-y-2">
+            {category.name}
+          </h3>
+          <div className="flex items-center gap-2 text-sm opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+            <span>Shop Now</span>
+            <ArrowRight size={16} />
+          </div>
         </div>
-      </section>
+      </Link>
+    ))}
+  </div>
+</section>
 
       {/* Best Sellers */}
-      <section className="py-16 md:py-24 bg-backgroundGray">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Best Sellers
-            </h2>
-            <p className="text-textSecondary text-lg">
-              Our most loved pieces this season
-            </p>
-          </div>
+<section className="py-20 md:py-28 bg-backgroundGray">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
+        Best Sellers
+      </h2>
+      <p className="text-textSecondary text-lg">
+        Our most loved pieces this season
+      </p>
+    </div>
 
-          <div className="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+    <div className="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {featuredProducts.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
 
-          <div className="text-center mt-12">
-            <Link href="/products">
-              <Button size="lg" variant="outline">
-                View All Products
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+    <div className="text-center mt-16">
+      <Link href="/products">
+        <Button size="lg" variant="outline" className="min-w-[200px]">
+          View All Products
+        </Button>
+      </Link>
+    </div>
+  </div>
+</section>
 
       {/* Promotional Banner */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1600"
-            alt="Promotional banner"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-black/50" />
-        </div>
+<section className="relative py-28 md:py-36 overflow-hidden">
+  <div className="absolute inset-0">
+    <Image
+      src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1600&auto=format&fit=crop&q=80"
+      alt="Promotional banner"
+      fill
+      className="object-cover"
+      sizes="100vw"
+    />
+    {/* Darker Overlay for better contrast */}
+    <div className="absolute inset-0 bg-black/60" />
+  </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl text-white">
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              New Season Sale
-            </h2>
-            <p className="text-xl md:text-2xl mb-8 text-white/90">
-              Up to 40% off on selected items. Limited time offer.
-            </p>
-            <Link href="/products?filter=sale">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-                Shop Sale
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-2xl">
+      <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-lg">
+        New Season Sale
+      </h2>
+      <p className="text-xl md:text-2xl mb-8 text-white drop-shadow-md">
+        Up to 40% off on selected items. Limited time offer.
+      </p>
+      <Link href="/products?filter=sale">
+        <Button 
+          size="lg" 
+          className="bg-accent text-white hover:bg-accentHover shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all"
+        >
+          Shop Sale
+        </Button>
+      </Link>
+    </div>
+  </div>
+</section>
 
       {/* Features */}
-      <section className="py-16 md:py-24 features-section">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="feature-card text-center p-8 rounded-2xl bg-white border border-border hover:shadow-lg transition-all duration-300"
-              >
-                <div className="w-16 h-16 mx-auto mb-6 bg-accent/10 rounded-full flex items-center justify-center">
-                  <feature.icon className="text-accent" size={32} />
-                </div>
-                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-textSecondary">{feature.description}</p>
-              </div>
-            ))}
+<section className="py-20 md:py-28 features-section">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {features.map((feature, index) => (
+        <div
+          key={index}
+          className="feature-card text-center p-8 rounded-2xl bg-white border border-border hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center min-h-[280px]"
+        >
+          <div className="w-20 h-20 mx-auto mb-6 bg-accent/10 rounded-full flex items-center justify-center">
+            <feature.icon className="text-accent" size={36} />
           </div>
+          <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+          <p className="text-textSecondary leading-relaxed">
+            {feature.description}
+          </p>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* Newsletter */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-accent to-accentHover">

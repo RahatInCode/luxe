@@ -68,28 +68,30 @@ export default function ProductCard({ product }: ProductCardProps) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Image Container */}
-        <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
-          <Image
-            src={product.images[0]}
-            alt={product.name}
-            fill
-            className={cn(
-              "object-cover transition-all duration-500",
-              isHovered && product.images[1] ? "opacity-0 scale-110" : "opacity-100 scale-100"
-            )}
-          />
-          {product.images[1] && (
-            <Image
-              src={product.images[1]}
-              alt={product.name}
-              fill
-              className={cn(
-                "object-cover transition-all duration-500",
-                isHovered ? "opacity-100 scale-100" : "opacity-0 scale-110"
-              )}
-            />
-          )}
+{/* Image Container */}
+<div className="relative aspect-[3/4] overflow-hidden bg-secondary">
+  <Image
+    src={product.images[0]}
+    alt={product.name}
+    fill
+    className={cn(
+      "object-cover object-center transition-all duration-500",
+      isHovered && product.images[1] ? "opacity-0 scale-110" : "opacity-100 scale-100"
+    )}
+    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+  />
+  {product.images[1] && (
+    <Image
+      src={product.images[1]}
+      alt={product.name}
+      fill
+      className={cn(
+        "object-cover object-center transition-all duration-500",
+        isHovered ? "opacity-100 scale-100" : "opacity-0 scale-110"
+      )}
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+    />
+  )}
 
           {/* Badges */}
           <div className="absolute top-4 left-4 flex flex-col gap-2">
@@ -165,17 +167,22 @@ export default function ProductCard({ product }: ProductCardProps) {
             </span>
           </div>
 
-          {/* Price */}
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-bold text-textPrimary">
-              ${product.price}
-            </span>
-            {product.compareAtPrice && (
-              <span className="text-sm text-textSecondary line-through">
-                ${product.compareAtPrice}
-              </span>
-            )}
-          </div>
+{/* Price */}
+<div className="flex items-baseline gap-2 mt-3">
+  <span className="text-lg font-bold text-textPrimary">
+    ${product.price}
+  </span>
+  {product.compareAtPrice && (
+    <>
+      <span className="text-sm text-textSecondary line-through">
+        ${product.compareAtPrice}
+      </span>
+      <span className="text-xs font-semibold text-error">
+        Save ${(product.compareAtPrice - product.price).toFixed(0)}
+      </span>
+    </>
+  )}
+</div>
         </div>
       </div>
     </Link>
