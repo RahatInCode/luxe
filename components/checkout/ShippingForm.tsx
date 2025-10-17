@@ -7,17 +7,18 @@ import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import { ShippingInfo } from '@/types'
 
+// Schema that matches your ShippingInfo interface exactly
 const shippingSchema = z.object({
   email: z.string().email('Invalid email address'),
   fullName: z.string().min(2, 'Full name is required'),
   phone: z.string().min(10, 'Valid phone number required'),
   addressLine1: z.string().min(5, 'Address is required'),
-  addressLine2: z.string().optional(),
+  addressLine2: z.string().optional(), // matches addressLine2?: string
   city: z.string().min(2, 'City is required'),
   state: z.string().min(2, 'State is required'),
   zipCode: z.string().min(5, 'Valid zip code required'),
   country: z.string().min(2, 'Country is required'),
-  saveInfo: z.boolean().optional(),
+  saveInfo: z.boolean(), // matches saveInfo: boolean (NOT optional)
 })
 
 interface ShippingFormProps {
@@ -33,7 +34,7 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
     resolver: zodResolver(shippingSchema),
     defaultValues: {
       country: 'United States',
-      saveInfo: false,
+      saveInfo: false, // This ensures saveInfo is always boolean
     },
   })
 
@@ -117,6 +118,9 @@ export default function ShippingForm({ onSubmit }: ShippingFormProps) {
                 <option>United Kingdom</option>
                 <option>Australia</option>
               </select>
+              {errors.country && (
+                <p className="mt-1 text-sm text-red-600">{errors.country.message}</p>
+              )}
             </div>
           </div>
 
