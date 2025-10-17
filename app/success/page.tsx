@@ -14,7 +14,7 @@ export default function SuccessPage() {
   const contentRef = useRef<HTMLDivElement>(null)
 
   // Generate mock order number
-  const orderNumber = `LUXE-${Math.random().toString(36).substr(2, 9).toUpperCase()}`
+  const orderNumber = `LUXE-${Math.random().toString(36).substring(2, 11).toUpperCase()}`
   const estimatedDelivery = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', {
     weekday: 'long',
     year: 'numeric',
@@ -23,20 +23,19 @@ export default function SuccessPage() {
   })
 
   useEffect(() => {
-    // Confetti animation
     const duration = 3000
     const animationEnd = Date.now() + duration
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 }
 
-    function randomInRange(min: number, max: number) {
-      return Math.random() * (max - min) + min
-    }
+    const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min
 
-    const interval: any = setInterval(function () {
+    // ✅ Properly typed interval (browser-safe)
+    const interval = window.setInterval(() => {
       const timeLeft = animationEnd - Date.now()
 
       if (timeLeft <= 0) {
-        return clearInterval(interval)
+        clearInterval(interval)
+        return
       }
 
       const particleCount = 50 * (timeLeft / duration)
@@ -53,16 +52,12 @@ export default function SuccessPage() {
       })
     }, 250)
 
-    // GSAP Animations
+    // ✅ GSAP Animations
     const ctx = gsap.context(() => {
       // Checkmark animation
       gsap.fromTo(
         checkmarkRef.current,
-        {
-          scale: 0,
-          rotation: -180,
-          opacity: 0,
-        },
+        { scale: 0, rotation: -180, opacity: 0 },
         {
           scale: 1,
           rotation: 0,
@@ -82,14 +77,16 @@ export default function SuccessPage() {
       })
 
       // Content stagger
-      gsap.from(contentRef.current?.children || [], {
-        y: 30,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        delay: 0.5,
-        ease: 'power3.out',
-      })
+      if (contentRef.current) {
+        gsap.from(contentRef.current.children, {
+          y: 30,
+          opacity: 0,
+          duration: 0.6,
+          stagger: 0.15,
+          delay: 0.5,
+          ease: 'power3.out',
+        })
+      }
     })
 
     return () => {
@@ -126,9 +123,7 @@ export default function SuccessPage() {
           <div className="bg-white rounded-2xl shadow-xl p-8 text-left">
             <div className="mb-6 pb-6 border-b border-border">
               <p className="text-sm text-textSecondary mb-1">Order Number</p>
-              <p className="text-2xl font-bold font-mono text-accent">
-                {orderNumber}
-              </p>
+              <p className="text-2xl font-bold font-mono text-accent">{orderNumber}</p>
             </div>
 
             <div className="space-y-4">
@@ -139,8 +134,7 @@ export default function SuccessPage() {
                 <div>
                   <p className="font-semibold mb-1">Confirmation Email Sent</p>
                   <p className="text-sm text-textSecondary">
-                    Weve sent a confirmation email with your order details and
-                    tracking information.
+                    Weve sent a confirmation email with your order details and tracking information.
                   </p>
                 </div>
               </div>
@@ -153,9 +147,7 @@ export default function SuccessPage() {
                   <p className="font-semibold mb-1">Estimated Delivery</p>
                   <p className="text-sm text-textSecondary">
                     Your order will arrive by{' '}
-                    <span className="font-medium text-textPrimary">
-                      {estimatedDelivery}
-                    </span>
+                    <span className="font-medium text-textPrimary">{estimatedDelivery}</span>
                   </p>
                 </div>
               </div>
@@ -168,23 +160,15 @@ export default function SuccessPage() {
             <ul className="space-y-2 text-sm text-textSecondary">
               <li className="flex items-start gap-2">
                 <span className="text-accent mt-0.5">✓</span>
-                <span>
-                  Youll receive an email confirmation shortly with your order
-                  details
-                </span>
+                <span>You will receive an email confirmation shortly with your order details.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-accent mt-0.5">✓</span>
-                <span>
-                  We will send you tracking information once your order ships
-                </span>
+                <span>We will send you tracking information once your order ships.</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-accent mt-0.5">✓</span>
-                <span>
-                  Your order will be carefully packaged and shipped within 1-2
-                  business days
-                </span>
+                <span>Your order will be carefully packaged and shipped within 1–2 business days.</span>
               </li>
             </ul>
           </div>
@@ -199,10 +183,7 @@ export default function SuccessPage() {
             <Button
               size="lg"
               className="flex-1"
-              onClick={() => {
-                // Mock track order
-                alert(`Tracking order ${orderNumber}`)
-              }}
+              onClick={() => alert(`Tracking order ${orderNumber}`)}
             >
               Track Order
             </Button>
