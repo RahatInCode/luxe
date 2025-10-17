@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import ProductGrid from '@/components/product/ProductGrid'
 import FilterSidebar from '@/components/product/FilterSidebar'
@@ -8,7 +8,8 @@ import ProductToolbar from '@/components/product/ProductToolbar'
 import { products } from '@/lib/data/products'
 import { useFilterStore } from '@/lib/store/filter'
 
-export default function ProductsPage() {
+// Separate component to handle searchParams
+function ProductsContent() {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false)
   const searchParams = useSearchParams()
 
@@ -61,14 +62,14 @@ export default function ProductsPage() {
     }
 
     // URL params (for category links)
-    const categoryParam = searchParams.get('category')
+    const categoryParam = searchParams?.get('category')
     if (categoryParam) {
       filtered = filtered.filter((p) =>
         p.category.toLowerCase().includes(categoryParam.toLowerCase())
       )
     }
 
-    const filterParam = searchParams.get('filter')
+    const filterParam = searchParams?.get('filter')
     if (filterParam === 'new') {
       filtered = filtered.filter((p) => p.new)
     } else if (filterParam === 'sale') {
@@ -105,19 +106,24 @@ export default function ProductsPage() {
     searchParams,
   ])
 
+  // Get page title
+  const getPageTitle = () => {
+    const filter = searchParams?.get('filter')
+    const category = searchParams?.get('category')
+    
+    if (filter === 'new') return 'New Arrivals'
+    if (filter === 'sale') return 'Sale'
+    if (category) return `${category.charAt(0).toUpperCase() + category.slice(1)}'s Collection`
+    return 'All Products'
+  }
+
   return (
     <div className="min-h-screen bg-backgroundGray">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Page Header */}
         <div className="mb-8">
           <h1 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            {searchParams.get('filter') === 'new'
-              ? 'New Arrivals'
-              : searchParams.get('filter') === 'sale'
-              ? 'Sale'
-              : searchParams.get('category')
-              ? `${searchParams.get('category')}'s Collection`
-              : 'All Products'}
+            {getPageTitle()}
           </h1>
           <p className="text-textSecondary text-lg">
             Discover our curated collection of premium products
@@ -153,7 +159,10 @@ export default function ProductsPage() {
             {filteredProducts.length > 0 && (
               <div className="mt-12 flex justify-center">
                 <div className="flex items-center gap-2">
-                  <button className="px-4 py-2 border border-border rounded-lg hover:border-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                  <button 
+                    className="px-4 py-2 border border-border rounded-lg hover:border-accent transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                  >
                     Previous
                   </button>
                   {[1, 2, 3].map((page) => (
@@ -185,5 +194,21 @@ export default function ProductsPage() {
         isMobile={true}
       />
     </div>
+  )
+}
+
+// Main component with Suspense boundary
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-backgroundGray flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
+          <p className="text-textSecondary">Loading products...</p>
+        </div>
+      </div>
+    }>
+      <ProductsContent />
+    </Suspense>
   )
 }
