@@ -33,13 +33,13 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="bg-gray-900 text-white mt-auto relative">
+    <footer className="bg-white text-black mt-auto relative">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand Section */}
           <div>
-            <h3 className="font-display text-3xl font-bold mb-6 text-white">
+            <h3 className="font-display text-3xl font-bold mb-6 text-black">
               LUXE
             </h3>
             <p className="text-gray-400 mb-6 leading-relaxed text-base">
@@ -64,7 +64,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-lg mb-6 text-white">
+            <h4 className="font-semibold text-lg mb-6 text-black">
               Quick Links
             </h4>
             <ul className="space-y-3">
@@ -83,13 +83,13 @@ export default function Footer() {
 
           {/* Shop */}
           <div>
-            <h4 className="font-semibold text-lg mb-6 text-white">Shop</h4>
+            <h4 className="font-semibold text-lg mb-6 text-black">Shop</h4>
             <ul className="space-y-3">
               {footerLinks.shop.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-white hover:translate-x-1 transition-all inline-block text-base"
+                    className="text-gray-400 hover:text-gray-600 hover:translate-x-1 transition-all inline-block text-base"
                   >
                     {link.name}
                   </Link>
@@ -100,7 +100,7 @@ export default function Footer() {
 
           {/* Customer Care */}
           <div>
-            <h4 className="font-semibold text-lg mb-6 text-white">
+            <h4 className="font-semibold text-lg mb-6 text-black">
               Customer Care
             </h4>
             <ul className="space-y-3">

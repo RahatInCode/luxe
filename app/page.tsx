@@ -348,39 +348,69 @@ export default function HomePage() {
       </section>
 
       {/* Newsletter */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-accent via-accent to-accentHover relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2" />
-        </div>
-        
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-6 drop-shadow-lg">
-            Stay in the Loop
-          </h2>
-          <p className="text-xl text-white/95 mb-10 drop-shadow">
-            Subscribe to get special offers, free giveaways, and updates
-          </p>
+<section className="py-20 md:py-28 bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
+  {/* Decorative elements */}
+  <div className="absolute inset-0 opacity-[0.04]">
+    <div className="absolute top-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
+    <div className="absolute bottom-0 right-0 w-96 h-96 bg-accentHover rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2" />
+    <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-primary rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
+  </div>
+  
+  {/* Geometric pattern */}
+  <div className="absolute inset-0 opacity-[0.02]">
+    <div className="absolute inset-0" style={{
+      backgroundImage: `radial-gradient(circle at 2px 2px, #6366f1 1px, transparent 0)`,
+      backgroundSize: '40px 40px'
+    }} />
+  </div>
+  
+  <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    {/* Badge */}
+    <div className="inline-flex items-center px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-semibold mb-6 border border-accent/20 backdrop-blur-sm">
+      <span className="w-2 h-2 bg-accent rounded-full mr-2 animate-pulse" />
+      Newsletter
+    </div>
+    
+    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+      Stay in the Loop
+    </h2>
+    <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+      Subscribe to get special offers, free giveaways, and exclusive updates delivered straight to your inbox
+    </p>
 
-          <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                required
-                className="flex-1 px-6 py-4 rounded-lg focus:outline-none focus:ring-4 focus:ring-white/50 shadow-lg text-base"
-              />
-              <Button
-                type="submit"
-                size="lg"
-                className="bg-white text-accent hover:bg-white/90 shadow-lg hover:shadow-xl whitespace-nowrap"
-              >
-                Subscribe
-              </Button>
-            </div>
-          </form>
-        </div>
-      </section>
+    <form onSubmit={handleNewsletterSubmit} className="max-w-xl mx-auto">
+      <div className="flex flex-col sm:flex-row gap-3 p-2 bg-white rounded-2xl shadow-2xl border border-gray-200/60 hover:shadow-3xl transition-shadow duration-300">
+        <input
+          type="email"
+          placeholder="Enter your email address"
+          required
+          className="flex-1 px-6 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent/50 text-base text-gray-900 placeholder-gray-400 bg-transparent"
+        />
+        <Button
+          type="submit"
+          size="lg"
+          className="bg-accent text-black hover:bg-accentHover shadow-lg hover:shadow-xl whitespace-nowrap rounded-xl transform hover:scale-105 transition-all duration-300"
+        >
+          Subscribe Now
+        </Button>
+      </div>
+      <p className="text-sm text-gray-500 mt-4 flex items-center justify-center gap-1">
+        <Shield size={14} className="text-gray-400" />
+        We respect your privacy. Unsubscribe at any time.
+      </p>
+    </form>
+
+    {/* Social proof */}
+    <div className="mt-12 flex items-center justify-center gap-2 text-sm text-gray-500">
+      <div className="flex -space-x-2">
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accentHover border-2 border-white" />
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent border-2 border-white" />
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-400 to-gray-600 border-2 border-white" />
+      </div>
+      <span className="font-medium text-gray-700">Join 10,000+ subscribers</span>
+    </div>
+  </div>
+</section>
     </div>
   )
 }
