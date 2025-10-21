@@ -13,12 +13,12 @@ const shippingSchema = z.object({
   fullName: z.string().min(2, 'Full name is required'),
   phone: z.string().min(10, 'Valid phone number required'),
   addressLine1: z.string().min(5, 'Address is required'),
-  addressLine2: z.string().optional(), // matches addressLine2?: string
+  addressLine2: z.string().optional(), 
   city: z.string().min(2, 'City is required'),
   state: z.string().min(2, 'State is required'),
   zipCode: z.string().min(5, 'Valid zip code required'),
   country: z.string().min(2, 'Country is required'),
-  saveInfo: z.boolean(), // matches saveInfo: boolean (NOT optional)
+  saveInfo: z.boolean(), 
 })
 
 interface ShippingFormProps {
