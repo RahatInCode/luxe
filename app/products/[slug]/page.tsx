@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Star, Heart, Minus, Plus, ChevronDown, Check, Truck, RotateCcw } from 'lucide-react'
+import { Star, Heart, Minus, Plus, ChevronDown, Check, Truck, RotateCcw, ShoppingCart, Zap } from 'lucide-react'
 import { products, reviews } from '@/lib/data/products'
 import { useCartStore } from '@/lib/store/cart'
 import { useWishlistStore } from '@/lib/store/wishlist'
@@ -24,6 +24,7 @@ import 'swiper/css/thumbs'
 
 export default function ProductDetailPage() {
   const params = useParams()
+  const router = useRouter()
   const product = products.find((p) => p.slug === params.slug)
   const productReviews = product ? reviews[product.id] || [] : []
 
@@ -38,6 +39,7 @@ export default function ProductDetailPage() {
   const { toggleItem, isInWishlist } = useWishlistStore()
 
   const addToCartBtnRef = useRef<HTMLButtonElement>(null)
+  const buyNowBtnRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     if (product) {
@@ -107,6 +109,34 @@ export default function ProductDetailPage() {
         openCart()
       }
     })
+  }
+
+  const handleBuyNow = () => {
+    if (!selectedSize || !selectedColor) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Please select options',
+        text: 'Please select size and color before proceeding',
+        confirmButtonColor: '#6366F1',
+      })
+      return
+    }
+
+    // Add to cart
+    addItem(product, selectedSize, selectedColor, quantity)
+
+    // Animation
+    if (buyNowBtnRef.current) {
+      gsap.to(buyNowBtnRef.current, {
+        scale: 0.95,
+        duration: 0.1,
+        yoyo: true,
+        repeat: 1,
+      })
+    }
+
+    // Redirect to checkout
+    router.push('/checkout')
   }
 
   const handleWishlist = () => {
@@ -241,7 +271,7 @@ export default function ProductDetailPage() {
 
           {/* Product Info */}
           <div className="lg:pl-8">
-            <h1 className="font-display text-3xl md:text-4xl font-bold mb-4">
+            <h1 className="font-display text-3xl md:text-4xl font-bold mb-4 text-gray-900">
               {product.name}
             </h1>
 
@@ -267,7 +297,7 @@ export default function ProductDetailPage() {
 
             {/* Price */}
             <div className="flex items-center gap-4 mb-6">
-              <span className="text-3xl font-bold">${product.price}</span>
+              <span className="text-3xl font-bold text-gray-900">${product.price}</span>
               {product.compareAtPrice && (
                 <>
                   <span className="text-xl text-textSecondary line-through">
@@ -288,7 +318,7 @@ export default function ProductDetailPage() {
 
             {/* Color Selection */}
             <div className="mb-6">
-              <label className="block font-semibold mb-3">
+              <label className="block font-semibold mb-3 text-gray-900">
                 Color: <span className="text-accent">{selectedColor}</span>
               </label>
               <div className="flex flex-wrap gap-3">
@@ -325,7 +355,7 @@ export default function ProductDetailPage() {
             {/* Size Selection */}
             <div className="mb-6">
               <div className="flex items-center justify-between mb-3">
-                <label className="font-semibold">
+                <label className="font-semibold text-gray-900">
                   Size: <span className="text-accent">{selectedSize}</span>
                 </label>
                 <button className="text-sm text-accent hover:underline">
@@ -352,66 +382,91 @@ export default function ProductDetailPage() {
 
             {/* Quantity */}
             <div className="mb-8">
-              <label className="block font-semibold mb-3">Quantity</label>
+              <label className="block font-semibold mb-3 text-gray-900">Quantity</label>
               <div className="flex items-center gap-4">
                 <div className="flex items-center border-2 border-border rounded-lg">
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-3 hover:bg-secondary transition-colors"
+                    className="p-3 hover:bg-secondary transition-colors text-gray-900"
+                    aria-label="Decrease quantity"
                   >
                     <Minus size={18} />
                   </button>
-                  <span className="px-6 font-semibold">{quantity}</span>
+                  <span className="px-6 font-semibold text-gray-900">{quantity}</span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="p-3 hover:bg-secondary transition-colors"
+                    className="p-3 hover:bg-secondary transition-colors text-gray-900"
+                    aria-label="Increase quantity"
                   >
                     <Plus size={18} />
                   </button>
                 </div>
                 <span className="text-sm text-textSecondary">
                   {product.inStock ? (
-                    <span className="text-success">In Stock</span>
+                    <span className="text-success font-medium">In Stock</span>
                   ) : (
-                    <span className="text-error">Out of Stock</span>
+                    <span className="text-error font-medium">Out of Stock</span>
                   )}
                 </span>
               </div>
             </div>
 
-            {/* Buttons */}
-            <div className="flex gap-4 mb-8">
+            {/* Action Buttons */}
+            <div className="space-y-3 mb-8">
+              {/* Buy Now Button - Primary Action */}
               <Button
-                ref={addToCartBtnRef}
+                ref={buyNowBtnRef}
                 size="lg"
-                className="flex-1"
-                onClick={handleAddToCart}
+                className="w-full bg-accent hover:bg-accent/90 text-white font-semibold shadow-lg hover:shadow-xl transition-all"
+                onClick={handleBuyNow}
                 disabled={!product.inStock}
               >
-                Add to Cart
+                <Zap size={20} className="mr-2" />
+                Buy Now
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={handleWishlist}
-                className={cn(inWishlist && 'border-error text-error')}
-              >
-                <Heart size={20} fill={inWishlist ? 'currentColor' : 'none'} />
-              </Button>
+
+              {/* Add to Cart & Wishlist Row */}
+              <div className="flex gap-3">
+                <Button
+                  ref={addToCartBtnRef}
+                  size="lg"
+                  variant="outline"
+                  className="flex-1 border-2 border-accent text-accent hover:bg-accent hover:text-white font-semibold transition-all"
+                  onClick={handleAddToCart}
+                  disabled={!product.inStock}
+                >
+                  <ShoppingCart size={20} className="mr-2" />
+                  Add to Cart
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={handleWishlist}
+                  className={cn(
+                    'border-2 transition-all',
+                    inWishlist 
+                      ? 'border-error text-error hover:bg-error hover:text-white' 
+                      : 'border-gray-300 text-gray-700 hover:border-error hover:text-error'
+                  )}
+                  aria-label="Add to wishlist"
+                >
+                  <Heart size={20} fill={inWishlist ? 'currentColor' : 'none'} />
+                </Button>
+              </div>
             </div>
 
             {/* Features */}
-            <div className="space-y-3 mb-8 p-6 bg-backgroundGray rounded-lg">
-              <div className="flex items-center gap-3 text-sm">
-                <Truck size={20} className="text-accent" />
+            <div className="space-y-3 mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="flex items-center gap-3 text-sm text-gray-700">
+                <Truck size={20} className="text-accent flex-shrink-0" />
                 <span>Free shipping on orders over $100</span>
               </div>
-              <div className="flex items-center gap-3 text-sm">
-                <RotateCcw size={20} className="text-accent" />
+              <div className="flex items-center gap-3 text-sm text-gray-700">
+                <RotateCcw size={20} className="text-accent flex-shrink-0" />
                 <span>30-day return policy</span>
               </div>
-              <div className="flex items-center gap-3 text-sm">
-                <Check size={20} className="text-accent" />
+              <div className="flex items-center gap-3 text-sm text-gray-700">
+                <Check size={20} className="text-accent flex-shrink-0" />
                 <span>Authenticity guaranteed</span>
               </div>
             </div>
@@ -420,7 +475,7 @@ export default function ProductDetailPage() {
             <div className="border-t border-border">
               <AccordionSection id="description" title="Description">
                 <p className="text-textSecondary leading-relaxed">
-                  {product.fullDescription}
+                  {product.fullDescription || product.description}
                 </p>
               </AccordionSection>
 
@@ -537,7 +592,7 @@ export default function ProductDetailPage() {
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div className="mt-24">
-            <h2 className="font-display text-3xl font-bold mb-8">
+            <h2 className="font-display text-3xl font-bold mb-8 text-gray-900">
               You May Also Like
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

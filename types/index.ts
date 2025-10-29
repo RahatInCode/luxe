@@ -1,39 +1,3 @@
-export interface Product {
-  id: string
-  slug: string
-  name: string
-  description: string
-  fullDescription: string
-  price: number
-  compareAtPrice?: number
-  images: string[]
-  category: string
-  sizes: string[]
-  colors: Array<{ name: string; hex: string }>
-  rating: number
-  reviewCount: number
-  inStock: boolean
-  featured?: boolean
-  new?: boolean
-}
-
-export interface CartItem {
-  productId: string
-  quantity: number
-  selectedSize: string
-  selectedColor: string
-  product: Product
-}
-
-export interface Review {
-  id: string
-  author: string
-  rating: number
-  date: string
-  comment: string
-  verified: boolean
-}
-
 export interface ShippingInfo {
   email: string
   fullName: string
@@ -44,7 +8,7 @@ export interface ShippingInfo {
   state: string
   zipCode: string
   country: string
-  saveInfo: boolean
+  saveInfo?: boolean
 }
 
 export interface PaymentInfo {
@@ -55,11 +19,28 @@ export interface PaymentInfo {
   cvv?: string
 }
 
-export interface FilterState {
-  selectedCategories: string[]
-  priceRange: [number, number]
-  selectedSizes: string[]
-  selectedColors: string[]
-  sortBy: string
-  searchQuery: string
+export interface Product {
+  id: string
+  name: string
+  slug: string
+  price: number
+  compareAtPrice?: number
+  description: string
+  fullDescription?: string
+  images: string[]
+  category: string
+  colors: { name: string; hex: string }[]
+  sizes: string[]
+  rating: number
+  reviewCount: number
+  inStock: boolean
+  new?: boolean
+}
+
+export interface CartItem {
+  productId: string
+  product: Product
+  selectedSize: string
+  selectedColor: string
+  quantity: number
 }

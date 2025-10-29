@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect } from 'react'
-import { X, ShoppingBag, Minus, Plus, Trash2 } from 'lucide-react'
+import { X, ShoppingBag, Minus, Plus, Trash2, ArrowRight } from 'lucide-react'
 import { useCartStore } from '@/lib/store/cart'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
@@ -10,6 +11,7 @@ import Swal from 'sweetalert2'
 import { cn } from '@/lib/utils/cn'
 
 export default function CartDrawer() {
+  const router = useRouter()
   const { items, isOpen, closeCart, updateQuantity, removeItem, getTotal } = useCartStore()
 
   useEffect(() => {
@@ -45,6 +47,11 @@ export default function CartDrawer() {
     })
   }
 
+  const handleCheckout = () => {
+    closeCart()
+    router.push('/checkout')
+  }
+
   const subtotal = getTotal()
   const shipping = subtotal > 100 ? 0 : 10
   const tax = subtotal * 0.08
@@ -64,13 +71,14 @@ export default function CartDrawer() {
       <div className="absolute top-0 right-0 bottom-0 w-full max-w-md bg-white shadow-2xl flex flex-col animate-in slide-in-from-right">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-border">
-          <h2 className="text-xl font-bold flex items-center gap-2">
+          <h2 className="text-xl font-bold flex items-center gap-2 text-gray-900">
             <ShoppingBag size={24} />
             Shopping Cart ({items.length})
           </h2>
           <button
             onClick={closeCart}
-            className="p-2 hover:bg-secondary rounded-lg transition-colors"
+            className="p-2 hover:bg-secondary rounded-lg transition-colors text-gray-900"
+            aria-label="Close cart"
           >
             <X size={24} />
           </button>
@@ -81,11 +89,13 @@ export default function CartDrawer() {
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
               <ShoppingBag size={64} className="text-textSecondary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Your cart is empty</h3>
+              <h3 className="text-xl font-semibold mb-2 text-gray-900">Your cart is empty</h3>
               <p className="text-textSecondary mb-6">
                 Add some products to get started
               </p>
-              <Button onClick={closeCart}>Continue Shopping</Button>
+              <Button onClick={closeCart} className="bg-accent text-white hover:bg-accent/90">
+                Continue Shopping
+              </Button>
             </div>
           ) : (
             <div className="space-y-4">
@@ -120,7 +130,7 @@ export default function CartDrawer() {
                     <p className="text-sm text-textSecondary mt-1">
                       {item.selectedColor} / {item.selectedSize}
                     </p>
-                    <p className="font-semibold mt-2">${item.product.price}</p>
+                    <p className="font-semibold mt-2 text-gray-900">${item.product.price}</p>
 
                     {/* Quantity Controls */}
                     <div className="flex items-center gap-3 mt-3">
@@ -134,11 +144,12 @@ export default function CartDrawer() {
                               item.quantity - 1
                             )
                           }
-                          className="p-2 hover:bg-secondary transition-colors"
+                          className="p-2 hover:bg-secondary transition-colors text-gray-900"
+                          aria-label="Decrease quantity"
                         >
                           <Minus size={14} />
                         </button>
-                        <span className="px-3 font-medium">{item.quantity}</span>
+                        <span className="px-3 font-medium text-gray-900">{item.quantity}</span>
                         <button
                           onClick={() =>
                             updateQuantity(
@@ -148,7 +159,8 @@ export default function CartDrawer() {
                               item.quantity + 1
                             )
                           }
-                          className="p-2 hover:bg-secondary transition-colors"
+                          className="p-2 hover:bg-secondary transition-colors text-gray-900"
+                          aria-label="Increase quantity"
                         >
                           <Plus size={14} />
                         </button>
@@ -163,6 +175,7 @@ export default function CartDrawer() {
                           )
                         }
                         className="p-2 text-error hover:bg-error/10 rounded-lg transition-colors"
+                        aria-label="Remove item"
                       >
                         <Trash2 size={18} />
                       </button>
@@ -176,45 +189,62 @@ export default function CartDrawer() {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="border-t border-border p-6 space-y-4">
+          <div className="border-t border-border p-6 space-y-4 bg-gray-50">
             {/* Pricing */}
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-textSecondary">Subtotal</span>
-                <span className="font-medium">${subtotal.toFixed(2)}</span>
+                <span className="font-medium text-gray-900">${subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-textSecondary">Shipping</span>
-                <span className={cn('font-medium', shipping === 0 && 'text-success')}>
+                <span className={cn('font-medium', shipping === 0 ? 'text-success' : 'text-gray-900')}>
                   {shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-textSecondary">Tax</span>
-                <span className="font-medium">${tax.toFixed(2)}</span>
+                <span className="font-medium text-gray-900">${tax.toFixed(2)}</span>
               </div>
               {subtotal < 100 && (
-                <p className="text-xs text-accent">
-                  Add ${(100 - subtotal).toFixed(2)} more for FREE shipping!
-                </p>
+                <div className="pt-2 px-3 py-2 bg-accent/10 rounded-lg">
+                  <p className="text-xs text-accent font-medium">
+                    🎉 Add ${(100 - subtotal).toFixed(2)} more for FREE shipping!
+                  </p>
+                </div>
               )}
             </div>
 
             <div className="flex justify-between text-lg font-bold pt-4 border-t border-border">
-              <span>Total</span>
-              <span>${total.toFixed(2)}</span>
+              <span className="text-gray-900">Total</span>
+              <span className="text-accent">${total.toFixed(2)}</span>
             </div>
 
             {/* Buttons */}
             <div className="space-y-2">
-              <Link href="/checkout" onClick={closeCart}>
-                <Button className="w-full" size="lg">
-                  Checkout
-                </Button>
-              </Link>
-              <Button variant="outline" className="w-full" onClick={closeCart}>
+              <Button 
+                className="w-full bg-accent hover:bg-accent/90 text-white font-semibold shadow-lg" 
+                size="lg"
+                onClick={handleCheckout}
+              >
+                Proceed to Checkout
+                <ArrowRight size={18} className="ml-2" />
+              </Button>
+              <Button 
+                variant="outline" 
+                className="w-full border-2 border-gray-300 text-gray-700 hover:border-accent hover:text-accent font-medium" 
+                onClick={closeCart}
+              >
                 Continue Shopping
               </Button>
+            </div>
+
+            {/* Security Badge */}
+            <div className="flex items-center justify-center gap-2 text-xs text-textSecondary pt-2">
+              <svg className="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+              </svg>
+              <span>Secure Checkout</span>
             </div>
           </div>
         )}
