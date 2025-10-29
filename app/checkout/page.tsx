@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useCartStore } from '@/lib/store/cart'
 import Button from '@/components/ui/Button'
 import Swal from 'sweetalert2'
-import { Lock, ShoppingBag, Check, ChevronDown, CreditCard, Apple } from 'lucide-react'
+import { Lock, ShoppingBag, Check, CreditCard, Apple } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
 
 interface ShippingInfo {
@@ -479,7 +479,7 @@ export default function CheckoutPage() {
                   {paymentInfo.method === 'apple' && (
                     <div className="py-8 text-center">
                       <p className="text-gray-600 mb-4">Click below to pay with Apple Pay</p>
-                      <div className="inline-block bg-black text-white font-medium py-3 px-8 rounded-lg flex items-center gap-2">
+                      <div className=" bg-black text-white font-medium py-3 px-8 rounded-lg flex items-center gap-2">
                         <Apple size={20} />
                         Pay with Apple Pay
                       </div>

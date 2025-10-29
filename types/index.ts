@@ -18,7 +18,14 @@ export interface PaymentInfo {
   expiryDate?: string
   cvv?: string
 }
-
+export interface Review {
+  id: string
+  author: string
+  rating: number
+  date: string
+  comment: string
+  verified: boolean
+}
 export interface Product {
   id: string
   name: string
