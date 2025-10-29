@@ -18,7 +18,7 @@ const shippingSchema = z.object({
   state: z.string().min(2, 'State is required'),
   zipCode: z.string().min(5, 'Valid zip code required'),
   country: z.string().min(2, 'Country is required'),
-  saveInfo: z.boolean(), 
+  saveInfo: z.boolean().optional(), 
 })
 
 interface ShippingFormProps {

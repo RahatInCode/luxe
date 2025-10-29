@@ -1,7 +1,12 @@
 import { create } from 'zustand'
-import { FilterState } from '@/types'
 
-interface FilterStore extends FilterState {
+interface FilterStore {
+  selectedCategories: string[]
+  priceRange: [number, number]
+  selectedSizes: string[]
+  selectedColors: string[]
+  sortBy: string
+  searchQuery: string
   view: 'grid' | 'list'
   setSelectedCategories: (categories: string[]) => void
   setPriceRange: (range: [number, number]) => void
