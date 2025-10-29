@@ -1,10 +1,13 @@
+// components/Header.tsx
 'use client'
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Menu, X, Search, User, Heart, ShoppingCart } from 'lucide-react'
 import { useCartStore } from '@/lib/store/cart'
 import { useWishlistStore } from '@/lib/store/wishlist'
+import { useUserStore } from '@/lib/store/user' // ✅ ADD THIS
 import { cn } from '@/lib/utils/cn'
 import SearchModal from './SearchModal'
 
@@ -15,6 +18,7 @@ export default function Header() {
 
   const { openCart, getItemCount } = useCartStore()
   const wishlistCount = useWishlistStore((state) => state.getCount())
+  const { user, isAuthenticated } = useUserStore() // ✅ ADD THIS
   const cartCount = getItemCount()
 
   // Ensure counts are numbers and handle display
@@ -86,12 +90,40 @@ export default function Header() {
                 <Search size={20} />
               </button>
 
-              <button
-                className="hidden md:block p-2 hover:bg-secondary rounded-lg transition-colors"
-                aria-label="Account"
-              >
-                <User size={20} />
-              </button>
+              {/* ✅ REPLACE THIS SECTION */}
+              {isAuthenticated && user ? (
+                <Link
+                  href="/account"
+                  className="relative p-2 hover:bg-secondary rounded-lg transition-colors group hidden md:block"
+                  aria-label="Account"
+                  title={user.name}
+                >
+                  {user.avatar ? (
+                    <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-transparent group-hover:border-accent transition-all">
+                      <Image 
+                        src={user.avatar} 
+                        alt={user.name} 
+                        width={32} 
+                        height={32}
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-sm font-bold group-hover:bg-accent group-hover:text-black transition-all">
+                      {user.name.charAt(0)}
+                    </div>
+                  )}
+                </Link>
+              ) : (
+                <Link
+                  href="/login"
+                  className="hidden md:block p-2 hover:bg-secondary rounded-lg transition-colors"
+                  aria-label="Login"
+                >
+                  <User size={20} />
+                </Link>
+              )}
+              {/* ✅ END REPLACE */}
 
               <Link
                 href="/wishlist"
@@ -100,7 +132,7 @@ export default function Header() {
               >
                 <Heart size={20} />
                 {wishNumber > 0 && (
-                  <span className="absolute -top-1 -right-1 min-w-[20px] h-5 px-1.5 flex items-center justify-center bg-accent text-black text-[10px] font-bold rounded-full  shadow-lg">
+                  <span className="absolute -top-1 -right-1 min-w-[20px] h-5 px-1.5 flex items-center justify-center bg-accent text-black text-[10px] font-bold rounded-full shadow-lg">
                     {displayWish}
                   </span>
                 )}
@@ -113,7 +145,7 @@ export default function Header() {
               >
                 <ShoppingCart size={20} />
                 {cartNumber > 0 && (
-                  <span className="absolute -top-1 -right-1 min-w-[20px] h-5 px-1.5 flex items-center justify-center bg-accent text-black text-[10px] font-bold rounded-full   shadow-lg">
+                  <span className="absolute -top-1 -right-1 min-w-[20px] h-5 px-1.5 flex items-center justify-center bg-accent text-black text-[10px] font-bold rounded-full shadow-lg">
                     {displayCart}
                   </span>
                 )}
@@ -133,6 +165,42 @@ export default function Header() {
                   {item.name}
                 </Link>
               ))}
+              {/* ✅ ADD MOBILE LOGIN/ACCOUNT LINK */}
+              <div className="pt-4 border-t border-border mt-4">
+                {isAuthenticated && user ? (
+                  <Link
+                    href="/account"
+                    className="flex items-center gap-3 py-2 text-sm font-medium text-textPrimary hover:text-accent transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {user.avatar ? (
+                      <div className="w-6 h-6 rounded-full overflow-hidden">
+                        <Image 
+                          src={user.avatar} 
+                          alt={user.name} 
+                          width={24} 
+                          height={24}
+                          className="object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-6 h-6 bg-black text-white rounded-full flex items-center justify-center text-xs font-bold">
+                        {user.name.charAt(0)}
+                      </div>
+                    )}
+                    My Account
+                  </Link>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="flex items-center gap-3 py-2 text-sm font-medium text-textPrimary hover:text-accent transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <User size={20} />
+                    Sign In
+                  </Link>
+                )}
+              </div>
             </nav>
           )}
         </div>
