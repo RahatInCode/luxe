@@ -33,9 +33,11 @@ export interface Product {
   sizes: string[]
   rating: number
   reviewCount: number
+  featured?: boolean 
   inStock: boolean
   new?: boolean
 }
+
 
 export interface CartItem {
   productId: string
