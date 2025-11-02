@@ -108,7 +108,7 @@ export default function OrderSuccessPage() {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 animate-in slide-in-from-bottom duration-500 delay-700">
             <Link href="/products" className="flex-1">
-              <Button className="w-full bg-accent hover:bg-accent/90 text-white" size="lg">
+              <Button className="w-full bg-accent hover:bg-accent/90 text-black" size="lg">
                 Continue Shopping
               </Button>
             </Link>

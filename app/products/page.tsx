@@ -170,7 +170,7 @@ function ProductsContent() {
                       key={page}
                       className={`px-4 py-2 rounded-lg transition-colors ${
                         page === 1
-                          ? 'bg-accent text-white'
+                          ? 'bg-accent text-black'
                           : 'border border-border hover:border-accent'
                       }`}
                     >

@@ -153,7 +153,7 @@ export default function FilterSidebar({ isOpen = true, onClose, isMobile = false
                 className={cn(
                   'px-4 py-2 border-2 rounded-lg font-medium transition-all duration-300',
                   selectedSizes.includes(size)
-                    ? 'border-accent bg-accent text-white'
+                    ? 'border-accent bg-accent text-black'
                     : 'border-border text-textPrimary hover:border-accent'
                 )}
               >

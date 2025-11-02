@@ -86,7 +86,7 @@ export default function WishlistPage() {
           <h2 className="text-2xl font-light text-gray-900 mb-3">{error}</h2>
           <button
             onClick={() => window.location.reload()}
-            className="inline-flex items-center gap-2 bg-black text-white px-8 py-3.5 hover:bg-gray-800 transition-colors duration-200 text-sm tracking-wide"
+            className="inline-flex items-center gap-2 bg-black text-black px-8 py-3.5 hover:bg-gray-800 transition-colors duration-200 text-sm tracking-wide"
           >
             Try Again
           </button>
@@ -130,7 +130,7 @@ export default function WishlistPage() {
             </p>
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 bg-black text-white px-8 py-3.5 hover:bg-gray-800 transition-colors duration-200 text-sm tracking-wide"
+              className="inline-flex items-center gap-2 bg-black text-black px-8 py-3.5 hover:bg-gray-800 transition-colors duration-200 text-sm tracking-wide"
             >
               <ShoppingBag className="w-4 h-4" />
               Continue Shopping
@@ -171,7 +171,7 @@ export default function WishlistPage() {
               </div>
               <Link
                 href="/products"
-                className="inline-flex items-center gap-2 border border-black text-black px-8 py-3.5 hover:bg-black hover:text-white transition-all duration-200 text-sm tracking-wide"
+                className="inline-flex items-center gap-2 border border-black text-black px-8 py-3.5 hover:bg-black hover:text-black transition-all duration-200 text-sm tracking-wide"
               >
                 Continue Shopping
               </Link>

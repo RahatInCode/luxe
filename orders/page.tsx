@@ -18,7 +18,7 @@ export default function OrdersPage() {
           <p className="text-gray-600 mb-6">
             When you place orders, they will appear here
           </p>
-          <Button onClick={() => router.push('/products')} className="bg-accent text-white">
+          <Button onClick={() => router.push('/products')} className="bg-accent text-black">
             Start Shopping
           </Button>
         </div>

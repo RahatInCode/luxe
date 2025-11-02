@@ -88,7 +88,7 @@ export function WishlistItem({ product, index }: WishlistItemProps) {
       {/* Remove Button */}
       <button
         onClick={handleRemove}
-        className="absolute top-3 right-3 z-10 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-black hover:text-white shadow-sm"
+        className="absolute top-3 right-3 z-10 w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-black hover:text-black shadow-sm"
         aria-label="Remove from wishlist"
       >
         <X className="w-4 h-4" strokeWidth={1.5} />
@@ -161,7 +161,7 @@ export function WishlistItem({ product, index }: WishlistItemProps) {
             className={cn(
               "flex-1 py-2.5 px-4 text-sm tracking-wide transition-colors duration-200 flex items-center justify-center gap-2",
               product.inStock
-                ? "bg-black text-white hover:bg-gray-800"
+                ? "bg-black text-black hover:bg-gray-800"
                 : "bg-gray-200 text-gray-400 cursor-not-allowed"
             )}
           >

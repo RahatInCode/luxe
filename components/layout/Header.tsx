@@ -109,7 +109,7 @@ export default function Header() {
                       />
                     </div>
                   ) : (
-                    <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-sm font-bold group-hover:bg-accent group-hover:text-black transition-all">
+                    <div className="w-8 h-8 bg-black text-black rounded-full flex items-center justify-center text-sm font-bold group-hover:bg-accent group-hover:text-black transition-all">
                       {user.name.charAt(0)}
                     </div>
                   )}
@@ -184,7 +184,7 @@ export default function Header() {
                         />
                       </div>
                     ) : (
-                      <div className="w-6 h-6 bg-black text-white rounded-full flex items-center justify-center text-xs font-bold">
+                      <div className="w-6 h-6 bg-black text-black rounded-full flex items-center justify-center text-xs font-bold">
                         {user.name.charAt(0)}
                       </div>
                     )}

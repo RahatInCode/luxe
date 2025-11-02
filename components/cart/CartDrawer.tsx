@@ -93,7 +93,7 @@ export default function CartDrawer() {
               <p className="text-textSecondary mb-6">
                 Add some products to get started
               </p>
-              <Button onClick={closeCart} className="bg-accent text-white hover:bg-accent/90">
+              <Button onClick={closeCart} className="bg-accent text-black hover:bg-accent/90">
                 Continue Shopping
               </Button>
             </div>
@@ -223,7 +223,7 @@ export default function CartDrawer() {
             {/* Buttons */}
             <div className="space-y-2">
               <Button 
-                className="w-full bg-accent hover:bg-accent/90 text-white font-semibold shadow-lg" 
+                className="w-full bg-accent hover:bg-accent/90 text-black font-semibold shadow-lg" 
                 size="lg"
                 onClick={handleCheckout}
               >

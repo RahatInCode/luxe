@@ -232,12 +232,12 @@ export default function ProductDetailPage() {
               {/* Badges */}
               <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
                 {product.new && (
-                  <span className="bg-accent text-white px-4 py-2 rounded-full text-sm font-semibold">
+                  <span className="bg-accent text-black px-4 py-2 rounded-full text-sm font-semibold">
                     NEW
                   </span>
                 )}
                 {product.compareAtPrice && (
-                  <span className="bg-error text-white px-4 py-2 rounded-full text-sm font-semibold">
+                  <span className="bg-error text-black px-4 py-2 rounded-full text-sm font-semibold">
                     SALE
                   </span>
                 )}
@@ -342,7 +342,7 @@ export default function ProductDetailPage() {
                           className={cn(
                             color.hex === '#FFFFFF' || color.hex === '#F5F5DC'
                               ? 'text-black'
-                              : 'text-white'
+                              : 'text-black'
                           )}
                         />
                       </div>
@@ -370,7 +370,7 @@ export default function ProductDetailPage() {
                     className={cn(
                       'px-6 py-3 border-2 rounded-lg font-medium transition-all',
                       selectedSize === size
-                        ? 'border-accent bg-accent text-white'
+                        ? 'border-accent bg-accent text-black'
                         : 'border-border text-textPrimary hover:border-accent'
                     )}
                   >
@@ -417,7 +417,7 @@ export default function ProductDetailPage() {
               <Button
                 ref={buyNowBtnRef}
                 size="lg"
-                className="w-full bg-accent hover:bg-accent/90 text-white font-semibold shadow-lg hover:shadow-xl transition-all"
+                className="w-full bg-accent hover:bg-accent/90 text-black font-semibold shadow-lg hover:shadow-xl transition-all"
                 onClick={handleBuyNow}
                 disabled={!product.inStock}
               >
@@ -431,7 +431,7 @@ export default function ProductDetailPage() {
                   ref={addToCartBtnRef}
                   size="lg"
                   variant="outline"
-                  className="flex-1 border-2 border-accent text-accent hover:bg-accent hover:text-white font-semibold transition-all"
+                  className="flex-1 border-2 border-accent text-accent hover:bg-accent hover:text-black font-semibold transition-all"
                   onClick={handleAddToCart}
                   disabled={!product.inStock}
                 >
@@ -445,7 +445,7 @@ export default function ProductDetailPage() {
                   className={cn(
                     'border-2 transition-all',
                     inWishlist 
-                      ? 'border-error text-error hover:bg-error hover:text-white' 
+                      ? 'border-error text-error hover:bg-error hover:text-black' 
                       : 'border-gray-300 text-gray-700 hover:border-error hover:text-error'
                   )}
                   aria-label="Add to wishlist"

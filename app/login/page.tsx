@@ -115,7 +115,7 @@ export default function LoginPage() {
 
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-black text-black rounded-full flex items-center justify-center flex-shrink-0">
                 ✓
               </div>
               <div>
@@ -126,7 +126,7 @@ export default function LoginPage() {
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-black text-black rounded-full flex items-center justify-center flex-shrink-0">
                 ✓
               </div>
               <div>
@@ -137,7 +137,7 @@ export default function LoginPage() {
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-black text-black rounded-full flex items-center justify-center flex-shrink-0">
                 ✓
               </div>
               <div>
@@ -172,7 +172,7 @@ export default function LoginPage() {
           {/* Test Accounts Notice */}
           <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <div className="flex items-start gap-2 mb-3">
-              <div className="w-5 h-5 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-0.5">
+              <div className="w-5 h-5 bg-blue-500 text-black rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-0.5">
                 i
               </div>
               <div>
@@ -290,7 +290,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-black text-white py-3.5 rounded-lg font-medium hover:bg-gray-800 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-black text-black py-3.5 rounded-lg font-medium hover:bg-gray-800 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <>

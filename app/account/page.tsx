@@ -134,7 +134,7 @@ export default function AccountPage() {
                       className="rounded-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full bg-black text-white rounded-full flex items-center justify-center text-3xl font-bold">
+                    <div className="w-full h-full bg-black text-black rounded-full flex items-center justify-center text-3xl font-bold">
                       {user.name.charAt(0)}
                     </div>
                   )}
@@ -169,7 +169,7 @@ export default function AccountPage() {
                   <Heart className="w-5 h-5" />
                   Wishlist
                   {user.wishlistCount > 0 && (
-                    <span className="ml-auto bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+                    <span className="ml-auto bg-red-500 text-black text-xs px-2 py-0.5 rounded-full">
                       {user.wishlistCount}
                     </span>
                   )}
@@ -209,7 +209,7 @@ export default function AccountPage() {
                       {user.orders.length}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 bg-black text-black rounded-full flex items-center justify-center">
                     <Package className="w-6 h-6" />
                   </div>
                 </div>
@@ -228,7 +228,7 @@ export default function AccountPage() {
                       {user.wishlistCount}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 bg-red-500 text-black rounded-full flex items-center justify-center">
                     <Heart className="w-6 h-6" />
                   </div>
                 </div>
@@ -247,7 +247,7 @@ export default function AccountPage() {
                       ${user.orders.reduce((sum, order) => sum + order.total, 0).toLocaleString()}
                     </p>
                   </div>
-                  <div className="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 bg-green-500 text-black rounded-full flex items-center justify-center">
                     <ShoppingBag className="w-6 h-6" />
                   </div>
                 </div>
@@ -321,7 +321,7 @@ export default function AccountPage() {
             >
               <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
                 <h2 className="text-xl font-semibold text-gray-900">Saved Addresses</h2>
-                <button className="px-4 py-2 bg-black text-white text-sm rounded-lg hover:bg-gray-800 transition-colors">
+                <button className="px-4 py-2 bg-black text-black text-sm rounded-lg hover:bg-gray-800 transition-colors">
                   Add New
                 </button>
               </div>
@@ -332,7 +332,7 @@ export default function AccountPage() {
                     className="border border-gray-200 rounded-lg p-4 hover:border-black transition-colors relative"
                   >
                     {address.isDefault && (
-                      <span className="absolute top-2 right-2 bg-black text-white text-xs px-2 py-1 rounded">
+                      <span className="absolute top-2 right-2 bg-black text-black text-xs px-2 py-1 rounded">
                         Default
                       </span>
                     )}

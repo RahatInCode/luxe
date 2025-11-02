@@ -56,7 +56,7 @@ export default function Footer() {
                   className="w-11 h-11 rounded-full bg-gray-800 hover:bg-accent flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-accent/50"
                   aria-label={social.label}
                 >
-                  <social.icon size={20} className="text-white" />
+                  <social.icon size={20} className="text-black" />
                 </a>
               ))}
             </div>
@@ -72,7 +72,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-white hover:translate-x-1 transition-all inline-block text-base"
+                    className="text-gray-400 hover:text-black hover:translate-x-1 transition-all inline-block text-base"
                   >
                     {link.name}
                   </Link>
@@ -108,7 +108,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-white hover:translate-x-1 transition-all inline-block text-base"
+                    className="text-gray-400 hover:text-black hover:translate-x-1 transition-all inline-block text-base"
                   >
                     {link.name}
                   </Link>
@@ -129,7 +129,7 @@ export default function Footer() {
               {['Visa', 'Mastercard', 'Amex', 'PayPal'].map((payment) => (
                 <div
                   key={payment}
-                  className="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-xs font-semibold text-white transition-colors duration-200"
+                  className="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-xs font-semibold text-black transition-colors duration-200"
                 >
                   {payment}
                 </div>

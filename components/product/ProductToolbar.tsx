@@ -57,7 +57,7 @@ export default function ProductToolbar({ totalProducts, onFilterClick }: Product
             onClick={() => setView('grid')}
             className={cn(
               'p-2 rounded transition-colors',
-              view === 'grid' ? 'bg-accent text-white' : 'text-textSecondary hover:text-accent'
+              view === 'grid' ? 'bg-accent text-black' : 'text-textSecondary hover:text-accent'
             )}
           >
             <Grid3x3 size={18} />
@@ -66,7 +66,7 @@ export default function ProductToolbar({ totalProducts, onFilterClick }: Product
             onClick={() => setView('list')}
             className={cn(
               'p-2 rounded transition-colors',
-              view === 'list' ? 'bg-accent text-white' : 'text-textSecondary hover:text-accent'
+              view === 'list' ? 'bg-accent text-black' : 'text-textSecondary hover:text-accent'
             )}
           >
             <List size={18} />

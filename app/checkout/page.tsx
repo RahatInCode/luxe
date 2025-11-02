@@ -70,7 +70,7 @@ export default function CheckoutPage() {
           <ShoppingBag size={64} className="mx-auto text-gray-400 mb-4" />
           <h1 className="text-3xl font-bold mb-4 text-gray-900">Your cart is empty</h1>
           <p className="text-gray-600 mb-6">Add some products before checking out</p>
-          <Button onClick={() => router.push('/products')} className="bg-accent text-white">
+          <Button onClick={() => router.push('/products')} className="bg-accent text-black">
             Continue Shopping
           </Button>
         </div>
@@ -195,9 +195,9 @@ export default function CheckoutPage() {
                   className={cn(
                     'w-12 h-12 rounded-full flex items-center justify-center font-semibold transition-all duration-300',
                     currentStep > step.number
-                      ? 'bg-success text-white'
+                      ? 'bg-success text-black'
                       : currentStep === step.number
-                      ? 'bg-accent text-white scale-110'
+                      ? 'bg-accent text-black scale-110'
                       : 'bg-gray-200 text-gray-500'
                   )}
                 >
@@ -364,7 +364,7 @@ export default function CheckoutPage() {
                     </div>
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full bg-accent text-white">
+                  <Button type="submit" size="lg" className="w-full bg-accent text-black">
                     Continue to Payment
                   </Button>
                 </form>
@@ -470,7 +470,7 @@ export default function CheckoutPage() {
                   {paymentInfo.method === 'paypal' && (
                     <div className="py-8 text-center">
                       <p className="text-gray-600 mb-4">You will be redirected to PayPal</p>
-                      <div className="inline-block bg-blue-500 text-white font-bold py-3 px-8 rounded-lg">
+                      <div className="inline-block bg-blue-500 text-black font-bold py-3 px-8 rounded-lg">
                         PayPal Checkout
                       </div>
                     </div>
@@ -479,7 +479,7 @@ export default function CheckoutPage() {
                   {paymentInfo.method === 'apple' && (
                     <div className="py-8 text-center">
                       <p className="text-gray-600 mb-4">Click below to pay with Apple Pay</p>
-                      <div className=" bg-black text-white font-medium py-3 px-8 rounded-lg flex items-center gap-2">
+                      <div className=" bg-black text-black font-medium py-3 px-8 rounded-lg flex items-center gap-2">
                         <Apple size={20} />
                         Pay with Apple Pay
                       </div>
@@ -490,7 +490,7 @@ export default function CheckoutPage() {
                     <Button type="button" variant="outline" size="lg" onClick={() => setCurrentStep(1)} className="flex-1">
                       Back
                     </Button>
-                    <Button type="submit" size="lg" className="flex-1 bg-accent text-white">
+                    <Button type="submit" size="lg" className="flex-1 bg-accent text-black">
                       Continue to Review
                     </Button>
                   </div>
@@ -559,7 +559,7 @@ export default function CheckoutPage() {
                       size="lg"
                       onClick={handlePlaceOrder}
                       isLoading={isProcessing}
-                      className="flex-1 bg-accent text-white"
+                      className="flex-1 bg-accent text-black"
                       disabled={!acceptedTerms}
                     >
                       {!isProcessing && <Lock size={18} className="mr-2" />}

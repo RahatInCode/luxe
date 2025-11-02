@@ -23,9 +23,9 @@ export default function CheckoutProgress({ currentStep }: CheckoutProgressProps)
                 className={cn(
                   'w-12 h-12 rounded-full flex items-center justify-center font-semibold transition-all duration-300',
                   currentStep > step.number
-                    ? 'bg-success text-white'
+                    ? 'bg-success text-black'
                     : currentStep === step.number
-                    ? 'bg-accent text-white scale-110'
+                    ? 'bg-accent text-black scale-110'
                     : 'bg-secondary text-textSecondary'
                 )}
               >

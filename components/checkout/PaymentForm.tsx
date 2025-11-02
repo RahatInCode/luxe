@@ -200,7 +200,7 @@ export default function PaymentForm({ onSubmit, onBack }: PaymentFormProps) {
             <p className="text-textSecondary mb-4">
               Click below to pay with Apple Pay
             </p>
-            <div className=" bg-black text-white font-medium py-3 px-8 rounded-lg flex items-center gap-2">
+            <div className=" bg-black text-black font-medium py-3 px-8 rounded-lg flex items-center gap-2">
               <Apple size={20} />
               Pay with Apple Pay
             </div>

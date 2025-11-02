@@ -176,14 +176,14 @@ export default function HomePage() {
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
           <h1
             ref={titleRef}
-            className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 leading-tight drop-shadow-2xl"
+            className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-black mb-8 leading-tight drop-shadow-2xl"
             style={{ opacity: isLoaded ? undefined : 1 }} // ✅ Fallback visibility
           >
             Elevate Your Style
           </h1>
           <p
             ref={subtitleRef}
-            className="text-xl md:text-2xl text-white mb-12 max-w-2xl mx-auto drop-shadow-lg leading-relaxed"
+            className="text-xl md:text-2xl text-black mb-12 max-w-2xl mx-auto drop-shadow-lg leading-relaxed"
             style={{ opacity: isLoaded ? undefined : 1 }} // ✅ Fallback visibility
           >
             Discover curated luxury fashion and timeless pieces crafted for the modern individual
@@ -203,7 +203,7 @@ export default function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-primary shadow-xl backdrop-blur-sm"
+                className="border-2 border-white text-black hover:bg-white hover:text-primary shadow-xl backdrop-blur-sm"
               >
                 New Arrivals
               </Button>
@@ -213,7 +213,7 @@ export default function HomePage() {
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-10">
-          <ChevronDown className="text-white drop-shadow-lg" size={32} />
+          <ChevronDown className="text-black drop-shadow-lg" size={32} />
         </div>
       </section>
 
@@ -243,7 +243,7 @@ export default function HomePage() {
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+              <div className="absolute bottom-0 left-0 right-0 p-8 text-black">
                 <h3 className="font-display text-3xl font-bold mb-2 transform transition-transform duration-300 group-hover:-translate-y-2 drop-shadow-lg">
                   {category.name}
                 </h3>
@@ -306,16 +306,16 @@ export default function HomePage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
-            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-2xl leading-tight">
+            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-black mb-6 drop-shadow-2xl leading-tight">
               New Season Sale
             </h2>
-            <p className="text-xl md:text-2xl mb-10 text-white drop-shadow-lg leading-relaxed">
+            <p className="text-xl md:text-2xl mb-10 text-black drop-shadow-lg leading-relaxed">
               Up to 40% off on selected items. Limited time offer.
             </p>
             <Link href="/products?filter=sale">
               <Button 
                 size="lg" 
-                className="bg-accent text-white hover:bg-accentHover shadow-2xl hover:shadow-accent/50 transform hover:scale-105 transition-all duration-300"
+                className="bg-accent text-black hover:bg-accentHover shadow-2xl hover:shadow-accent/50 transform hover:scale-105 transition-all duration-300"
               >
                 Shop Sale
               </Button>

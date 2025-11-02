@@ -97,12 +97,12 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Badges */}
           <div className="absolute top-4 left-4 flex flex-col gap-2">
             {product.new && (
-              <span className="bg-accent text-white px-3 py-1 rounded-full text-xs font-semibold">
+              <span className="bg-accent text-black px-3 py-1 rounded-full text-xs font-semibold">
                 NEW
               </span>
             )}
             {discount > 0 && (
-              <span className="bg-error text-white px-3 py-1 rounded-full text-xs font-semibold">
+              <span className="bg-error text-black px-3 py-1 rounded-full text-xs font-semibold">
                 -{discount}%
               </span>
             )}
@@ -114,7 +114,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               onClick={handleWishlist}
               className={cn(
                 "w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md hover:scale-110 transition-all duration-300",
-                inWishlist && "bg-error text-white"
+                inWishlist && "bg-error text-black"
               )}
               aria-label="Add to wishlist"
             >
@@ -131,7 +131,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Add to Cart Button */}
           <button
             onClick={handleAddToCart}
-            className="absolute bottom-4 left-4 right-4 bg-primary text-white py-3 rounded-lg font-medium opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 flex items-center justify-center gap-2 hover:bg-primary/90"
+            className="absolute bottom-4 left-4 right-4 bg-primary text-black py-3 rounded-lg font-medium opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 flex items-center justify-center gap-2 hover:bg-primary/90"
           >
             <ShoppingCart size={18} />
             Add to Cart
