@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, Truck, Shield, HeadphonesIcon, ChevronDown } from 'lucide-react'
+import { ArrowRight, Truck, Shield, HeadphonesIcon, ChevronDown, Play, Sparkles } from 'lucide-react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Button from '@/components/ui/Button'
@@ -18,6 +18,7 @@ export default function HomePage() {
   const titleRef = useRef<HTMLHeadingElement>(null)
   const subtitleRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
@@ -58,7 +59,7 @@ export default function HomePage() {
             trigger: '.product-grid',
             start: 'top 85%',
             end: 'top 60%',
-            toggleActions: 'play none none none', // ✅ No reverse - stays visible
+            toggleActions: 'play none none none',
             once: false,
           },
           y: 0,
@@ -66,7 +67,27 @@ export default function HomePage() {
           stagger: 0.15,
           duration: 0.8,
           ease: 'power3.out',
-          clearProps: 'all', // ✅ Clear props after animation
+          clearProps: 'all',
+        }
+      )
+
+      // Fashion show video section animation
+      gsap.fromTo(
+        '.video-content',
+        { y: 80, autoAlpha: 0 },
+        {
+          scrollTrigger: {
+            trigger: '.fashion-show-section',
+            start: 'top 80%',
+            end: 'top 50%',
+            toggleActions: 'play none none none',
+            once: false,
+          },
+          y: 0,
+          autoAlpha: 1,
+          duration: 1,
+          ease: 'power3.out',
+          clearProps: 'all',
         }
       )
 
@@ -79,7 +100,7 @@ export default function HomePage() {
             trigger: '.features-section',
             start: 'top 85%',
             end: 'top 60%',
-            toggleActions: 'play none none none', // ✅ No reverse
+            toggleActions: 'play none none none',
             once: false,
           },
           y: 0,
@@ -87,7 +108,7 @@ export default function HomePage() {
           stagger: 0.2,
           duration: 0.6,
           ease: 'power2.out',
-          clearProps: 'all', // ✅ Clear props after animation
+          clearProps: 'all',
         }
       )
     }, heroRef)
@@ -100,7 +121,7 @@ export default function HomePage() {
     return () => {
       clearTimeout(refreshTimer)
       ctx.revert()
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill()) // ✅ Proper cleanup
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
     }
   }, [])
 
@@ -177,21 +198,21 @@ export default function HomePage() {
           <h1
             ref={titleRef}
             className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-black mb-8 leading-tight drop-shadow-2xl"
-            style={{ opacity: isLoaded ? undefined : 1 }} // ✅ Fallback visibility
+            style={{ opacity: isLoaded ? undefined : 1 }}
           >
             Elevate Your Style
           </h1>
           <p
             ref={subtitleRef}
             className="text-xl md:text-2xl text-black mb-12 max-w-2xl mx-auto drop-shadow-lg leading-relaxed"
-            style={{ opacity: isLoaded ? undefined : 1 }} // ✅ Fallback visibility
+            style={{ opacity: isLoaded ? undefined : 1 }}
           >
             Discover curated luxury fashion and timeless pieces crafted for the modern individual
           </p>
           <div 
             ref={ctaRef} 
             className="flex flex-col sm:flex-row gap-4 justify-center"
-            style={{ opacity: isLoaded ? undefined : 1 }} // ✅ Fallback visibility
+            style={{ opacity: isLoaded ? undefined : 1 }}
           >
             <Link href="/products">
               <Button size="lg" className="group bg-white text-primary hover:bg-white/90 shadow-2xl">
@@ -274,7 +295,7 @@ export default function HomePage() {
               <div 
                 key={product.id} 
                 className="product-card"
-                style={{ opacity: 1 }} // ✅ Ensure visible by default
+                style={{ opacity: 1 }}
               >
                 <ProductCard product={product} />
               </div>
@@ -324,6 +345,96 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Fashion Show Video Section - NEW */}
+      <section className="fashion-show-section relative py-20 md:py-32 overflow-hidden bg-black">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover opacity-40"
+          >
+            <source
+              src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+          
+          {/* Gradient Overlays */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60" />
+        </div>
+
+        {/* Content */}
+        <div className="video-content relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            {/* Badge */}
+            <div className="inline-flex items-center px-5 py-2 bg-white/10 backdrop-blur-md text-white rounded-full text-sm font-semibold mb-8 border border-white/20">
+              <Sparkles className="w-4 h-4 mr-2 text-accent" />
+              <span>Runway Collection 2024</span>
+            </div>
+
+            {/* Main Heading */}
+            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-2xl">
+              Experience the Runway
+            </h2>
+
+            {/* Description */}
+            <p className="text-xl md:text-2xl text-gray-200 mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
+              Step into the world of haute couture. Witness our latest collection come to life on the runway, 
+              showcasing innovative designs and timeless elegance.
+            </p>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto mb-12">
+              <div className="text-center">
+                <div className="text-4xl md:text-5xl font-bold text-accent mb-2 font-display">150+</div>
+                <div className="text-sm md:text-base text-gray-300 uppercase tracking-wider">Unique Pieces</div>
+              </div>
+              <div className="text-center border-x border-white/20">
+                <div className="text-4xl md:text-5xl font-bold text-accent mb-2 font-display">50+</div>
+                <div className="text-sm md:text-base text-gray-300 uppercase tracking-wider">Designers</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl md:text-5xl font-bold text-accent mb-2 font-display">2024</div>
+                <div className="text-sm md:text-base text-gray-300 uppercase tracking-wider">Collection</div>
+              </div>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link href="/products?filter=runway">
+                <Button 
+                  size="lg" 
+                  className="group bg-white text-black hover:bg-gray-100 shadow-2xl min-w-[200px]"
+                >
+                  <Play className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
+                  Shop Runway Looks
+                </Button>
+              </Link>
+              <Link href="/products?category=luxury">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-white text-white hover:bg-white hover:text-black shadow-xl backdrop-blur-sm min-w-[200px]"
+                >
+                  Explore Collection
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-10 left-10 w-32 h-32 border-t-2 border-l-2 border-accent/30 rounded-tl-3xl" />
+        <div className="absolute bottom-10 right-10 w-32 h-32 border-b-2 border-r-2 border-accent/30 rounded-br-3xl" />
+      </section>
+
       {/* Features */}
       <section className="py-20 md:py-28 features-section bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -332,7 +443,7 @@ export default function HomePage() {
               <div
                 key={index}
                 className="feature-card text-center p-10 rounded-2xl bg-white border-2 border-border hover:border-accent/30 hover:shadow-2xl transition-all duration-300 flex flex-col items-center justify-center min-h-[300px]"
-                style={{ opacity: 1 }} // ✅ Ensure visible by default
+                style={{ opacity: 1 }}
               >
                 <div className="w-20 h-20 mx-auto mb-6 bg-accent/10 rounded-full flex items-center justify-center">
                   <feature.icon className="text-accent" size={36} />
@@ -348,69 +459,69 @@ export default function HomePage() {
       </section>
 
       {/* Newsletter */}
-<section className="py-20 md:py-28 bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
-  {/* Decorative elements */}
-  <div className="absolute inset-0 opacity-[0.04]">
-    <div className="absolute top-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
-    <div className="absolute bottom-0 right-0 w-96 h-96 bg-accentHover rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2" />
-    <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-primary rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
-  </div>
-  
-  {/* Geometric pattern */}
-  <div className="absolute inset-0 opacity-[0.02]">
-    <div className="absolute inset-0" style={{
-      backgroundImage: `radial-gradient(circle at 2px 2px, #6366f1 1px, transparent 0)`,
-      backgroundSize: '40px 40px'
-    }} />
-  </div>
-  
-  <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    {/* Badge */}
-    <div className="inline-flex items-center px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-semibold mb-6 border border-accent/20 backdrop-blur-sm">
-      <span className="w-2 h-2 bg-accent rounded-full mr-2 animate-pulse" />
-      Newsletter
-    </div>
-    
-    <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-      Stay in the Loop
-    </h2>
-    <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-      Subscribe to get special offers, free giveaways, and exclusive updates delivered straight to your inbox
-    </p>
+      <section className="py-20 md:py-28 bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 opacity-[0.04]">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-accentHover rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2" />
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-primary rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2" />
+        </div>
+        
+        {/* Geometric pattern */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, #6366f1 1px, transparent 0)`,
+            backgroundSize: '40px 40px'
+          }} />
+        </div>
+        
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          {/* Badge */}
+          <div className="inline-flex items-center px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-semibold mb-6 border border-accent/20 backdrop-blur-sm">
+            <span className="w-2 h-2 bg-accent rounded-full mr-2 animate-pulse" />
+            Newsletter
+          </div>
+          
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            Stay in the Loop
+          </h2>
+          <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Subscribe to get special offers, free giveaways, and exclusive updates delivered straight to your inbox
+          </p>
 
-    <form onSubmit={handleNewsletterSubmit} className="max-w-xl mx-auto">
-      <div className="flex flex-col sm:flex-row gap-3 p-2 bg-white rounded-2xl shadow-2xl border border-gray-200/60 hover:shadow-3xl transition-shadow duration-300">
-        <input
-          type="email"
-          placeholder="Enter your email address"
-          required
-          className="flex-1 px-6 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent/50 text-base text-gray-900 placeholder-gray-400 bg-transparent"
-        />
-        <Button
-          type="submit"
-          size="lg"
-          className="bg-accent text-black hover:bg-accentHover shadow-lg hover:shadow-xl whitespace-nowrap rounded-xl transform hover:scale-105 transition-all duration-300"
-        >
-          Subscribe Now
-        </Button>
-      </div>
-      <p className="text-sm text-gray-500 mt-4 flex items-center justify-center gap-1">
-        <Shield size={14} className="text-gray-400" />
-        We respect your privacy. Unsubscribe at any time.
-      </p>
-    </form>
+          <form onSubmit={handleNewsletterSubmit} className="max-w-xl mx-auto">
+            <div className="flex flex-col sm:flex-row gap-3 p-2 bg-white rounded-2xl shadow-2xl border border-gray-200/60 hover:shadow-3xl transition-shadow duration-300">
+              <input
+                type="email"
+                placeholder="Enter your email address"
+                required
+                className="flex-1 px-6 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent/50 text-base text-gray-900 placeholder-gray-400 bg-transparent"
+              />
+              <Button
+                type="submit"
+                size="lg"
+                className="bg-accent text-black hover:bg-accentHover shadow-lg hover:shadow-xl whitespace-nowrap rounded-xl transform hover:scale-105 transition-all duration-300"
+              >
+                Subscribe Now
+              </Button>
+            </div>
+            <p className="text-sm text-gray-500 mt-4 flex items-center justify-center gap-1">
+              <Shield size={14} className="text-gray-400" />
+              We respect your privacy. Unsubscribe at any time.
+            </p>
+          </form>
 
-    {/* Social proof */}
-    <div className="mt-12 flex items-center justify-center gap-2 text-sm text-gray-500">
-      <div className="flex -space-x-2">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accentHover border-2 border-white" />
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent border-2 border-white" />
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-400 to-gray-600 border-2 border-white" />
-      </div>
-      <span className="font-medium text-gray-700">Join 10,000+ subscribers</span>
-    </div>
-  </div>
-</section>
+          {/* Social proof */}
+          <div className="mt-12 flex items-center justify-center gap-2 text-sm text-gray-500">
+            <div className="flex -space-x-2">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accentHover border-2 border-white" />
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent border-2 border-white" />
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-400 to-gray-600 border-2 border-white" />
+            </div>
+            <span className="font-medium text-gray-700">Join 10,000+ subscribers</span>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

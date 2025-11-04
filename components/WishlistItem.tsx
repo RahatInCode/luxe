@@ -161,7 +161,7 @@ export function WishlistItem({ product, index }: WishlistItemProps) {
             className={cn(
               "flex-1 py-2.5 px-4 text-sm tracking-wide transition-colors duration-200 flex items-center justify-center gap-2",
               product.inStock
-                ? "bg-black text-black hover:bg-gray-800"
+                ? "bg-black text-white hover:bg-gray-800"
                 : "bg-gray-200 text-gray-400 cursor-not-allowed"
             )}
           >
